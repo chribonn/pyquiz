@@ -40,9 +40,12 @@ class QuizApp:
 
         # run until the user exists the app
         while True:
-            selection = input ("Enter your selection").upper()
+            selection = input("Enter your selection ").upper()
 
-            if selection[0] == "M":
+            if len(selection) == 0:
+                self.menu_error()
+                continue
+            elif selection[0] == "M":
                 self.menu_header()
                 continue
             elif selection[0] == "L":
@@ -50,7 +53,6 @@ class QuizApp:
 
                 # TODO: Show the quizes
                 print ("-------------------------------\n")
-                continue
             elif selection[0] == "T":
                 try:
                     quiznum = int(input("Enter quiz number:"))
@@ -61,13 +63,11 @@ class QuizApp:
                     self.menu_error()
 
                 # TODO: Load and run the quiz
-                continue
             elif selection[0] == "E":
                 self.goodbye()
                 break
             else:
                 self.menu_error()
-                continue
 
     # This is the entry point to the program
     def run(self):
@@ -76,6 +76,9 @@ class QuizApp:
         # Start the main program meny and run until the user exists
         self.menu()
 
+if __name__ == "__main__":
+    app = QuizApp()
+    app.run()
 
 
 
