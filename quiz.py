@@ -1,5 +1,50 @@
 # The Quiz and Question classes defined for a particular quiz
-import quiz
+
+class Quiz:
+    def __init__(self):
+        self.name = ""
+        self.description = ""
+        self.questions = []
+        self.score = 0
+        self.correct_count = 0
+        self.total_points = 0
+        
+    def print_header(self):
+        print ("\n\n**********************************************")
+        print (f"QUIZ NAME: {self.name}")
+        print (f"DESCRIPTION: {self.description}")
+        print (f"QUESTIONS: {len(self.questions)}")
+        print (f"TOTAL POINTS: {self.total_points}")
+        print ("**********************************************\n")
+        
+    def print_results(self):
+        print ("\n\n**********************************************")
+
+        print ("**********************************************\n")
+
+    def take_quiz(self):
+        # Initialise variables
+        self.score = 0
+        self.correct_count = 0
+        self.total_points = 0
+        for q in self.questions:
+            q.is_correct = False
+            self.total_points += q.points
+            
+        # Print the header
+        self.print_header()
+        
+        # Execute each question and record the result
+        for q in self.questions:
+            q.ask()
+            if (q.is_correct):
+                self.correct_count += 1
+                self.score += q.points
+  
+        print ("----------------------------------------------\n")
+        
+        # Reutrn the results
+        return (self.score, self.correct_count, self.total_points)
 
 
 class Question:
@@ -70,11 +115,14 @@ class Answer:
         self.name = ""
 
 if __name__ == "__main__":
+    qz = Quiz()
+    
     q1 = QuestionTF()
     q1.text = "Broccoli is good for you"
     q1.points = 5
     q1.correct_answer = "t"
-    q1.ask()
+    
+    qz.questions.append(q1)
 
     q2 = QuestionMC()
     q2.text = 'What is 2+2?'
@@ -100,9 +148,8 @@ if __name__ == "__main__":
     ans.name = "d"
     ans.text = "6"
     q2.answers.append(ans)
+    
+    qz.questions.append(q2)
 
-    q2.ask()
-
-    print (q1.is_correct)
-    print (q2.is_correct)
+    print (qz.take_quiz())
 
