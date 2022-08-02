@@ -1,9 +1,13 @@
-# Example file for "Build a Quiz"
 # pyquiz.py -- Main starting point of the program
 
+from quizmanager import QuizManager
+
 class QuizApp:
+    QUIZ_FOLDER = "Quizzes"
+    
     def __init__(self):
         self.username = ""
+        self.qm = QuizManager(QuizApp.QUIZ_FOLDER)
 
     def startup(self):
         # print the greeting at startup
@@ -50,6 +54,8 @@ class QuizApp:
                 continue
             elif selection[0] == "L":
                 print ("These are the available quizes")
+                
+                self.qm.list_quizzes()
 
                 # TODO: Show the quizes
                 print ("-------------------------------\n")
@@ -58,7 +64,8 @@ class QuizApp:
                     quiznum = int(input("Enter quiz number:"))
                     print ("You have selected {0}".format(quiznum))
 
-                    # TODO: Start the quiz
+                    self.qm.take_quiz(quiznum, self.username)
+                    self.qm.print_results()
                 except:
                     self.menu_error()
 

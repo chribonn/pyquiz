@@ -22,13 +22,14 @@ class QuizManager:
         
         # Build the list of quizzes
         if (os.path.exists(self.quizfolder) == False):
-            raise FileNotFound("The quiz folder does not seem to exist")
+            raise FileNotFoundError("The quiz folder does not seem to exist")
             
         
     def _build_quiz_list(self):
         dircontents = os.scandir(self.quizfolder)
         for i, f in enumerate(dircontents):
-            if f.is_file():
+            if f.is_file() and os.path.splitext('/path/to/somefile.ext') == "xml":
+                
                 parser = quizparser.QuizParser()
                 self.quizzes[i+1] = parser.parse_quiz(f)
                 
@@ -39,8 +40,10 @@ class QuizManager:
             print (f"({k}) {v.name}")
             
     # start the given quiz for the user and return the results
-    def take_quiz(self, quizif, username):
-        pass
+    def take_quiz(self, quizzid, username):
+        self.quiztaker = username
+        self.the_quiz = self.quizzes[quizzid]
+        self.results = self.the_quiz.take_quiz()
     
     # prints the results of the most recently taken quiz
     def print_results(self):
@@ -52,7 +55,7 @@ class QuizManager:
     def save_results(self):
         pass
     
-    if __name__ == "__main__":
-        qm = QuizManager("Quizzes")
-        qm.list_quizzes()
+    # if __name__ == "__main__":
+    #     qm = QuizManager("Quizzes")
+    #     qm.list_quizzes()
     
