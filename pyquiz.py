@@ -79,9 +79,13 @@ class QuizApp:
                     if saveresults[0] == "Y":
                         self.qm.save_results()
                         break
-                    elif saveresults[0] != "N":
+                    elif saveresults[0] == "N":
+                        break
+                    else:
                         continue
-                        
+                     
+                # show the menu again
+                self.menu_header()
             elif selection[0] == "E":
                 self.goodbye()
                 break

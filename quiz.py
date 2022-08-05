@@ -1,6 +1,7 @@
 # The Quiz and Question classes defined for a particular quiz
 import datetime
 import sys
+import random
 
 class Quiz:
     def __init__(self):
@@ -10,6 +11,7 @@ class Quiz:
         self.score = 0
         self.correct_count = 0
         self.total_points = 0
+        self.completion_time = 0
         
     def print_header(self):
         print ("\n\n**********************************************")
@@ -26,6 +28,7 @@ class Quiz:
         print (f"QUESTIONS: {self.correct_count} out of {len(self.questions)} correct", file=thefile, flush=True)
         print (f"SCORE: {self.score} points out of {self.total_points}", file=thefile, flush=True)
         print (f"PERCENTAGE: {self.score / self.total_points * 100:.2f}", file=thefile, flush=True)
+        print (f"TIME TO COMPLETE: {self.completion_time}", file=thefile, flush=True)
         print ("**********************************************\n", file=thefile, flush=True)
  
     def take_quiz(self):
@@ -33,12 +36,18 @@ class Quiz:
         self.score = 0
         self.correct_count = 0
         self.total_points = 0
+        
         for q in self.questions:
             q.is_correct = False
             self.total_points += q.points
             
         # Print the header
         self.print_header()
+        
+        # randomise the questions
+        random.shuffle(self.questions)
+
+        start_time = datetime.datetime.now()
         
         # Execute each question and record the result
         for q in self.questions:
@@ -47,6 +56,10 @@ class Quiz:
                 self.correct_count += 1
                 self.score += q.points
   
+        end_time = datetime.datetime.now()
+        
+        self.completion_time = end_time - start_time
+        self.completion_time = datetime.timedelta(seconds = round(self.completion_time.total_seconds()))
         print ("----------------------------------------------\n")
         
         # Reutrn the results
