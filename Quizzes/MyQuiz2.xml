@@ -7,6 +7,13 @@
         <Answer name="3">5</Answer>
         <Answer name="4">6</Answer>
     </Question>
+    <Question type="multiselect" points="10">
+        <QuestionText answer="3,4">Which of these are not colours of the rainbow?</QuestionText>
+        <Answer name="1">Blue</Answer>
+        <Answer name="2">Red</Answer>
+        <Answer name="3">White</Answer>
+        <Answer name="4">Black</Answer>
+    </Question>
     <Question type="tf" points="5">
         <QuestionText answer="f">Sweets are good for you</QuestionText>
     </Question>

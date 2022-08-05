@@ -20,4 +20,11 @@
     <Question type="tf" points="5">
         <QuestionText answer="f">The world is flat</QuestionText>
     </Question>
+    <Question type="multiselect" points="10">
+        <QuestionText answer="1,2">Which of these are colours of the rainbow?</QuestionText>
+        <Answer name="1">Blue</Answer>
+        <Answer name="2">Red</Answer>
+        <Answer name="3">White</Answer>
+        <Answer name="4">Black</Answer>
+    </Question>
 </QuizML>
