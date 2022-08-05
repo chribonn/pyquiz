@@ -146,6 +146,39 @@ class QuestionMC(Question):
 
             break
 
+# MultiSelect class - there is more than one answer
+class QuestionMS(Question):
+    def __init__(self):
+        super().__init__()
+        self.answers = []
+
+    def ask(self):
+        while (True):
+            print (self.text)
+            for a in self.answers:
+                print (f"({a.name}) {a.text}")
+
+            print ("Enter the correct answers seperated by commas")
+            response = input("? ").lower()
+            if len(response) == 0:
+                self.InvalidInput()
+                continue
+
+            # remove all spaces
+            response.replace(" ", "")
+            response_list = response.split(",")
+            found = all(a in self.answers for a in response_list)
+
+            # Check that the input is one of the valid answers
+            if not found:
+                self.InvalidInput()
+                continue
+
+            if response[0] == self.correct_answer:
+                self.is_correct = True
+
+            break
+
 class Answer:
     def __init__(self):
         self.text = ""

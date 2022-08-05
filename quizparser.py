@@ -47,11 +47,19 @@ class QuizParser(xml.sax.ContentHandler):
                 self._current_question = QuestionMC()
             elif attrs["type"] == "tf":
                 self._current_question = QuestionTF()
+            elif attrs["type"] == "multiselect":
+                self._current_question = QuestionMS()
             self._current_question.points = int(attrs["points"])
             self.new_quiz.total_points += self._current_question.points
         elif tagname == "QuestionText":
             self._parse_state = QuizParserState.PARSE_QUEST_TEXT
-            self._current_question.correct_answer = attrs["answer"]
+            # for multiselect answers clean up the answer and convert it into a list
+            if self._current_question = QuestionMS():
+                theanswer = attrs["answer"]
+                theanswer.replace(" ", "")
+                self._current_question.correct_answer = theanswer.split(",")                
+            else:
+                self._current_question.correct_answer = attrs["answer"]
         elif tagname == "Answer":
             self._current_answer = Answer()
             self._current_answer.name = attrs["name"]
