@@ -55,12 +55,30 @@ class Quiz:
             if (q.is_correct):
                 self.correct_count += 1
                 self.score += q.points
+        print ("----------------------------------------------\n")
   
         end_time = datetime.datetime.now()
         
+        if self.correct_count != len(self.questions):
+            while True:
+                response = input ("You did not get all the questions. Try failed questions? (y/n) ").lower()
+                if response[0] == "y":
+                    wrong_qs = [q for q in self.questions if q.is_correct == False]
+                    for q in wrong_qs:
+                        q.ask()
+                        if (q.is_correct):
+                            self.correct_count += 1
+                            self.score += q.points
+                    print ("----------------------------------------------\n")
+                    end_time = datetime.datetime.now()
+                    break
+                elif response[0] == "n":
+                    break
+                else:
+                    continue
+        
         self.completion_time = end_time - start_time
         self.completion_time = datetime.timedelta(seconds = round(self.completion_time.total_seconds()))
-        print ("----------------------------------------------\n")
         
         # Reutrn the results
         return (self.score, self.correct_count, self.total_points)
