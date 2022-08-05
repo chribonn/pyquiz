@@ -1,4 +1,6 @@
 # The Quiz and Question classes defined for a particular quiz
+import datetime
+import sys
 
 class Quiz:
     def __init__(self):
@@ -17,11 +19,15 @@ class Quiz:
         print (f"TOTAL POINTS: {self.total_points}")
         print ("**********************************************\n")
         
-    def print_results(self):
-        print ("\n\n**********************************************")
-
-        print ("**********************************************\n")
-
+    def print_results(self, quiztaker, thefile = sys.stdout):
+        print ("\n\n**********************************************", file=thefile, flush=True)
+        print (f"Results for {quiztaker}", file=thefile, flush=True)
+        print (f"Date: {datetime.datetime.today().strftime('%d/%m/%Y')}", file=thefile, flush=True)
+        print (f"QUESTIONS: {self.correct_count} out of {len(self.questions)} correct", file=thefile, flush=True)
+        print (f"SCORE: {self.score} points out of {self.total_points}", file=thefile, flush=True)
+        print (f"PERCENTAGE: {self.score / self.total_points * 100:.2f}", file=thefile, flush=True)
+        print ("**********************************************\n", file=thefile, flush=True)
+ 
     def take_quiz(self):
         # Initialise variables
         self.score = 0
@@ -114,42 +120,42 @@ class Answer:
         self.text = ""
         self.name = ""
 
-if __name__ == "__main__":
-    qz = Quiz()
+# if __name__ == "__main__":
+#     qz = Quiz()
     
-    q1 = QuestionTF()
-    q1.text = "Broccoli is good for you"
-    q1.points = 5
-    q1.correct_answer = "t"
+#     q1 = QuestionTF()
+#     q1.text = "Broccoli is good for you"
+#     q1.points = 5
+#     q1.correct_answer = "t"
     
-    qz.questions.append(q1)
+#     qz.questions.append(q1)
 
-    q2 = QuestionMC()
-    q2.text = 'What is 2+2?'
-    q2.points = 10
-    q2.correct_answer = "b"
+#     q2 = QuestionMC()
+#     q2.text = 'What is 2+2?'
+#     q2.points = 10
+#     q2.correct_answer = "b"
 
-    ans = Answer()
-    ans.name = "a"
-    ans.text = "3"
-    q2.answers.append(ans)
+#     ans = Answer()
+#     ans.name = "a"
+#     ans.text = "3"
+#     q2.answers.append(ans)
 
-    ans = Answer()
-    ans.name = "b"
-    ans.text = "4"
-    q2.answers.append(ans)
+#     ans = Answer()
+#     ans.name = "b"
+#     ans.text = "4"
+#     q2.answers.append(ans)
 
-    ans = Answer()
-    ans.name = "c"
-    ans.text = "5"
-    q2.answers.append(ans)
+#     ans = Answer()
+#     ans.name = "c"
+#     ans.text = "5"
+#     q2.answers.append(ans)
 
-    ans = Answer()
-    ans.name = "d"
-    ans.text = "6"
-    q2.answers.append(ans)
+#     ans = Answer()
+#     ans.name = "d"
+#     ans.text = "6"
+#     q2.answers.append(ans)
     
-    qz.questions.append(q2)
+#     qz.questions.append(q2)
 
-    print (qz.take_quiz())
+#     print (qz.take_quiz())
 

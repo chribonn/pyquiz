@@ -6,8 +6,9 @@ class QuizApp:
     QUIZ_FOLDER = "Quizzes"
     
     def __init__(self):
-        self.username = ""
+        self.username =  ""
         self.qm = QuizManager(QuizApp.QUIZ_FOLDER)
+        self.qm.build_quiz_list()
 
     def startup(self):
         # print the greeting at startup
@@ -54,7 +55,6 @@ class QuizApp:
                 continue
             elif selection[0] == "L":
                 print ("These are the available quizes")
-                
                 self.qm.list_quizzes()
 
                 # TODO: Show the quizes
@@ -68,8 +68,20 @@ class QuizApp:
                     self.qm.print_results()
                 except:
                     self.menu_error()
-
-                # TODO: Load and run the quiz
+                    
+                # offer to save the results
+                while True:
+                    saveresults = input("Save the results? (y/n): ")
+                    if len(saveresults) == 0:
+                        continue
+                    
+                    saveresults = saveresults.capitalize()
+                    if saveresults[0] == "Y":
+                        self.qm.save_results()
+                        break
+                    elif saveresults[0] != "N":
+                        continue
+                        
             elif selection[0] == "E":
                 self.goodbye()
                 break
