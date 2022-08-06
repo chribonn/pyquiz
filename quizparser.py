@@ -57,7 +57,8 @@ class QuizParser(xml.sax.ContentHandler):
             if self._current_question.__class__.__name__ == "QuestionMS":
                 theanswer = attrs["answer"]
                 theanswer = theanswer.replace(" ", "")
-                self._current_question.correct_answer = theanswer.split(",")                
+                self._current_question.correct_answer = theanswer.split(",")
+                self._current_question.correct_answer.sort()
             else:
                 self._current_question.correct_answer = attrs["answer"]
         elif tagname == "Answer":

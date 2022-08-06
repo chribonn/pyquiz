@@ -166,22 +166,20 @@ class QuestionMS(Question):
 
             response = response.replace(" ", "")
             response_list = response.split(",")
+            response_list.sort()
 
             # Validate input
-            found = False
-            for a in self.answers:
-                found = all(each_response in self.correct_answer for each_response in response_list)
-                    found = True
-                    break
-            found = all(a in self.correct_answer for a in response_list)
+            # Build the answer list
+            ans_name_list = []
+            for ans in self.answers:
+                ans_name_list.append(ans.name)
 
-            # Check that the input is one of the valid answers
+            found = all(a in ans_name_list for a in response_list)
             if not found:
                 self.InvalidInput()
                 continue
 
-            found = all(a in self.correct_answer for a in response_list)
-            if found:
+            if self.correct_answer == response_list:
                 self.is_correct = True
 
             break
