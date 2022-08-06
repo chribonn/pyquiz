@@ -164,17 +164,24 @@ class QuestionMS(Question):
                 self.InvalidInput()
                 continue
 
-            # remove all spaces
-            response.replace(" ", "")
+            response = response.replace(" ", "")
             response_list = response.split(",")
-            found = all(a in self.answers for a in response_list)
+
+            # Validate input
+            found = False
+            for a in self.answers:
+                found = all(each_response in self.correct_answer for each_response in response_list)
+                    found = True
+                    break
+            found = all(a in self.correct_answer for a in response_list)
 
             # Check that the input is one of the valid answers
             if not found:
                 self.InvalidInput()
                 continue
 
-            if response[0] == self.correct_answer:
+            found = all(a in self.correct_answer for a in response_list)
+            if found:
                 self.is_correct = True
 
             break

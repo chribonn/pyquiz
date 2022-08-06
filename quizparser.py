@@ -54,9 +54,9 @@ class QuizParser(xml.sax.ContentHandler):
         elif tagname == "QuestionText":
             self._parse_state = QuizParserState.PARSE_QUEST_TEXT
             # for multiselect answers clean up the answer and convert it into a list
-            if self._current_question = QuestionMS():
+            if self._current_question.__class__.__name__ == "QuestionMS":
                 theanswer = attrs["answer"]
-                theanswer.replace(" ", "")
+                theanswer = theanswer.replace(" ", "")
                 self._current_question.correct_answer = theanswer.split(",")                
             else:
                 self._current_question.correct_answer = attrs["answer"]
